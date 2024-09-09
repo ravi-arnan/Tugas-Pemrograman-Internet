@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Penilaian Mata Kuliah Pemrograman Internet</title>
+</head>
+<body>
+    <h1>Penilaian Mata Kuliah Pemrograman Internet</h1>
+
+    <form method="post" action="">
+        <label for="nama">Nama:</label><br>
+        <input type="text" id="nama" name="nama" required><br><br>
+
+        <label for="nim">NIM:</label><br>
+        <input type="text" id="nim" name="nim" required><br><br>
+
+        <label for="nilai">Nilai Angka (0 - 100):</label><br>
+        <input type="number" id="nilai" name="nilai" min="0" max="100" required><br><br>
+
+        <input type="submit" name="submit" value="Submit">
+    </form>
+
+    <?php
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        // Ambil data dari form
+        $nama = htmlspecialchars($_POST['nama']);
+        $nim = htmlspecialchars($_POST['nim']);
+        $nilai = intval($_POST['nilai']);
+
+        // Fungsi untuk mengkonversi nilai angka menjadi nilai huruf
+        function konversiNilai($nilai) {
+            if ($nilai >= 85) {
+                return 'A';
+            } elseif ($nilai >= 80) {
+                return 'B+';
+            } elseif ($nilai >= 75) {
+                return 'B';
+            } elseif ($nilai >= 70) {
+                return 'C+';
+            } elseif ($nilai >= 65) {
+                return 'C';
+            } elseif ($nilai >= 60) {
+                return 'D';
+            } else {
+                return 'E';
+            }
+        }
+
+        // Mengonversi nilai angka menjadi nilai huruf
+        $nilaiHuruf = konversiNilai($nilai);
+
+        // Output hasil
+        echo "<h2>Hasil Penilaian:</h2>";
+        echo "Namamu adalah: $nama<br>";
+        echo "NIM-mu adalah: $nim<br>";
+        echo "Nilai huruf yang didapat: $nilaiHuruf<br>";
+    }
+    ?>
+</body>
+</html>
